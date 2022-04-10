@@ -1,1 +1,4 @@
 database
+bin
+.vscode
+.DS_Store
