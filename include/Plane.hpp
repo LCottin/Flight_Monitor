@@ -31,6 +31,9 @@ class Plane
         Plane(const string &id);
         Plane(const char *id);
 
+        // =================== //
+        //        Setters      //   
+        // =================== //
         /**
          * @brief Changes the latitude of the plane
          * @param latitude The new latitude
@@ -131,6 +134,9 @@ class Plane
          */
         void setIsSPI(const bool isSPI);
 
+        // =================== //
+        //        Getters      //
+        // =================== //
         /**
          * @brief Returns the latitude of the plane
          */
@@ -189,7 +195,7 @@ class Plane
         /**
          * @brief Returns the callsign of the plane
          */
-        string getCallsign() const;
+        string getCallSign() const;
 
         /**
          * @brief Returns the grounded status of the plane
@@ -205,11 +211,6 @@ class Plane
          * @brief Returns the SPI status of the plane
          */
         bool getIsSPI() const;
-
-        /**
-         * @brief Returns the plane as a string
-         */
-        string toString() const;
 };
 
 #endif

@@ -105,3 +105,78 @@ void Plane::setIsSPI(const bool isSPI)
 {
     _IsSPI = isSPI;
 }
+
+double Plane::getLatitude() const
+{
+    return _Latitude;
+}
+
+double Plane::getLongitude() const
+{
+    return _Longitude;
+}
+
+double Plane::getGroundVelocity() const
+{
+    return _GroundVelocity;
+}
+
+double Plane::getVerticalVelocity() const
+{
+    return _VerticalVelocity;
+}
+
+double Plane::getGPSAltitude() const
+{
+    return _GPSAltitude;
+}
+
+double Plane::getBaroAltitude() const
+{
+    return _BaroAltitude;
+}
+
+double Plane::getHeading() const
+{
+    return _Heading;
+}
+
+double Plane::getLastPost() const
+{
+    return _LastPost;
+}
+
+double Plane::getLastContact() const
+{
+    return _LastContact;
+}
+
+string Plane::getID() const
+{
+    return _ID;
+}
+
+string Plane::getSquawk() const
+{
+    return _Squawk;
+}
+
+string Plane::getCallSign() const
+{
+    return _CallSign;
+}
+
+bool Plane::getIsGrounded() const
+{
+    return _IsGrounded;
+}
+
+bool Plane::getIsAlerted() const
+{
+    return _IsAlerted;
+}
+
+bool Plane::getIsSPI() const
+{
+    return _IsSPI;
+}
