@@ -87,5 +87,58 @@ int main(int argc, char const *argv[])
     */
 
     Plane plane("r");
+
+    // using each of the setters
+    plane.setGroundVelocity(1.0);
+    plane.setVerticalVelocity(2.0);
+    plane.setGPSAltitude(3.0);
+    plane.setBaroAltitude(4.0);
+    plane.setHeading(5.0);
+    plane.setLastPost(6.0);
+    plane.setLastContact(7.0);
+    plane.setID("8");
+    plane.setSquawk("9");
+    plane.setCallSign("10");
+    plane.setIsGrounded(true);
+    plane.setIsAlerted(true);
+    plane.setIsSPI(true);
+    plane.setLatitude(11.0);
+    plane.setLongitude(12.0);
+
+    // using the getters
+    cout << "Ground velocity: " << plane.getGroundVelocity() << endl;
+    cout << "Vertical velocity: " << plane.getVerticalVelocity() << endl;
+    cout << "GPS altitude: " << plane.getGPSAltitude() << endl;
+    cout << "Baro altitude: " << plane.getBaroAltitude() << endl;
+    cout << "Heading: " << plane.getHeading() << endl;
+    cout << "Last post: " << plane.getLastPost() << endl;
+    cout << "Last contact: " << plane.getLastContact() << endl;
+    cout << "ID: " << plane.getID() << endl;
+    cout << "Squawk: " << plane.getSquawk() << endl;
+    cout << "Call sign: " << plane.getCallSign() << endl;
+    cout << "Is grounded: " << plane.getIsGrounded() << endl;
+    cout << "Is alerted: " << plane.getIsAlerted() << endl;
+    cout << "Is SPI: " << plane.getIsSPI() << endl;
+    cout << "Latitude: " << plane.getLatitude() << endl;
+    cout << "Longitude: " << plane.getLongitude() << endl;
+
+    printf("\n");
+    //using the geters with printf
+    printf("Ground velocity: %lf\n", plane.getGroundVelocity());
+    printf("Vertical velocity: %lf\n", plane.getVerticalVelocity());
+    printf("GPS altitude: %lf\n", plane.getGPSAltitude());
+    printf("Baro altitude: %lf\n", plane.getBaroAltitude());
+    printf("Heading: %lf\n", plane.getHeading());
+    printf("Last post: %lf\n", plane.getLastPost());
+    printf("Last contact: %lf\n", plane.getLastContact());
+    printf("ID: %s\n", plane.getID().c_str());
+    printf("Squawk: %s\n", plane.getSquawk().c_str());
+    printf("Call sign: %s\n", plane.getCallSign().c_str());
+    printf("Is grounded: %s\n", plane.getIsGrounded() ? "True":"False");
+    printf("Is alerted: %s\n", plane.getIsAlerted() ? "True":"False");
+    printf("Is SPI: %s\n", plane.getIsSPI() ? "True":"False");
+    printf("Latitude: %lf\n", plane.getLatitude());
+    printf("Longitude: %lf\n", plane.getLongitude());
+
     return 0;
 }
