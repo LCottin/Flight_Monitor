@@ -180,3 +180,37 @@ bool Plane::getIsSPI() const
 {
     return _IsSPI;
 }
+
+double Plane::getDistanceFrom(const double latitude, const double longitude) const
+{
+    double dLat = latitude - _Latitude;
+    double dLon = longitude - _Longitude;
+
+    return sqrt(dLat * dLat + dLon * dLon);
+}
+
+double Plane::getDistanceFrom(const Plane &plane) const
+{
+    return getDistanceFrom(plane.getLatitude(), plane.getLongitude());
+}
+
+void Plane::printInfo() const
+{
+    cout << "======================================" << endl;
+    printf("ID:                 %s\n", _ID.c_str());
+    printf("Is grounded:        %s\n", _IsGrounded ? "True":"False");
+    printf("Latitude:           %lf\n", _Latitude);
+    printf("Longitude:          %lf\n", _Longitude);
+    printf("Ground velocity:    %lf\n", _GroundVelocity);
+    printf("Vertical velocity:  %lf\n", _VerticalVelocity);
+    printf("GPS altitude:       %lf\n", _GPSAltitude);
+    printf("Baro altitude:      %lf\n", _BaroAltitude);
+    printf("Heading:            %lf\n", _Heading);
+    printf("Last post:          %lf\n", _LastPost);
+    printf("Last contact:       %lf\n", _LastContact);
+    printf("Squawk:             %s\n", _Squawk.c_str());
+    printf("Call sign:          %s\n", _CallSign.c_str());
+    printf("Is alerted:         %s\n", _IsAlerted ? "True":"False");
+    printf("Is SPI:             %s\n", _IsSPI ? "True":"False");
+    cout << "======================================\n" << endl;
+}

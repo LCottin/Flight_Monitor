@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -211,6 +212,29 @@ class Plane
          * @brief Returns the SPI status of the plane
          */
         bool getIsSPI() const;
+
+        // =================== //
+        //        Others       //
+        // =================== // 
+        /**
+         * @brief Returns the distance between the plane and the given position
+         * @param latitude The latitude of the position
+         * @param longitude The longitude of the position
+         * @return The distance 
+         */
+        double getDistanceFrom(const double latitude, const double longitude) const;
+
+        /**
+         * @brief Returns the distance between the plane and the other plane
+         * @param plane The other plane
+         * @return The distance
+         */
+        double getDistanceFrom(const Plane &plane) const;
+
+        /**
+         * @brief Prints info about the plane
+         */
+        void printInfo() const;
 };
 
 #endif
