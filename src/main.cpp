@@ -140,5 +140,8 @@ int main(int argc, char const *argv[])
     printf("Latitude: %lf\n", plane.getLatitude());
     printf("Longitude: %lf\n", plane.getLongitude());
 
+    printf("\n");
+    plane.printInfo();
+    
     return 0;
 }
