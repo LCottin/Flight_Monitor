@@ -6,10 +6,14 @@
 #include <cstring>
 #include <cstdlib>
 
+#include "Plane.hpp"
+
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
+
+    /*
     FILE *fp = fopen("database/database.csv", "r");
     if (fp == NULL)
     {
@@ -80,5 +84,8 @@ int main(int argc, char const *argv[])
     }
     
     fclose(fp);
+    */
+
+    Plane plane("r");
     return 0;
 }
