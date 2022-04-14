@@ -21,7 +21,7 @@ class Plane
 
         string _ID;
         string _Squawk;
-        string _Callsign;
+        string _CallSign;
 
         bool _IsGrounded;
         bool _IsAlerted;
@@ -42,6 +42,13 @@ class Plane
          * @param longitude The new longitude
          */
         void setLongitude(const double longitude);
+
+        /**
+         * @brief Changes the position of the plane
+         * @param latitude The new latitude
+         * @param longitude The new longitude
+         */ 
+        void setPosition(const double latitude, const double longitude);
 
         /**
          * @brief Changes the ground velocity of the plane
@@ -89,22 +96,22 @@ class Plane
          * @brief Changes the ID of the plane
          * @param id The new ID
          */
-        void setID(const string id);
-        void sedID(const char *id);
+        void setID(const string &id);
+        void setID(const char *id);
 
         /**
          * @brief Changes the squawk of the plane
          * @param squawk The new squawk
          */
-        void setSquawk(const string squawk);
+        void setSquawk(const string &squawk);
         void setSquawk(const char *squawk);
 
         /**
          * @brief Changes the callsign of the plane
          * @param callsign The new callsign
          */
-        void setCallsign(const string callsign);
-        void setCallsign(const char *callsign);
+        void setCallSign(const string &callsign);
+        void setCallSign(const char *callsign);
 
         /**
          * @brief Changes the grounded status of the plane
