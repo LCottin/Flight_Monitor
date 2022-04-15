@@ -106,6 +106,11 @@ void Plane::setIsSPI(const bool isSPI)
     _IsSPI = isSPI;
 }
 
+void Plane::setIsSelected(const bool isSelected)
+{
+    _IsSelected = isSelected;
+}
+
 double Plane::getLatitude() const
 {
     return _Latitude;
@@ -166,17 +171,17 @@ string Plane::getCallSign() const
     return _CallSign;
 }
 
-bool Plane::getIsGrounded() const
+bool Plane::isGrounded() const
 {
     return _IsGrounded;
 }
 
-bool Plane::getIsAlerted() const
+bool Plane::isAlerted() const
 {
     return _IsAlerted;
 }
 
-bool Plane::getIsSPI() const
+bool Plane::isSPI() const
 {
     return _IsSPI;
 }
@@ -192,6 +197,11 @@ double Plane::getDistanceFrom(const double latitude, const double longitude) con
 double Plane::getDistanceFrom(const Plane &plane) const
 {
     return getDistanceFrom(plane.getLatitude(), plane.getLongitude());
+}
+
+bool Plane::isSelected() const
+{
+    return _IsSelected;
 }
 
 void Plane::printInfo() const
@@ -212,5 +222,6 @@ void Plane::printInfo() const
     printf("Call sign:          %s\n", _CallSign.c_str());
     printf("Is alerted:         %s\n", _IsAlerted ? "True":"False");
     printf("Is SPI:             %s\n", _IsSPI ? "True":"False");
+    printf("Is selected:        %s\n", _IsSelected ? "True":"False");
     cout << "======================================\n" << endl;
 }

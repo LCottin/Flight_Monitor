@@ -27,6 +27,7 @@ class Plane
         bool _IsGrounded;
         bool _IsAlerted;
         bool _IsSPI;
+        bool _IsSelected;
 
     public:
         Plane(const string &id);
@@ -135,6 +136,12 @@ class Plane
          */
         void setIsSPI(const bool isSPI);
 
+        /**
+         * @brief Selects the plane
+         * @param isSelected The new selected status
+         */
+        void setIsSelected(const bool isSelected); 
+
         // =================== //
         //        Getters      //
         // =================== //
@@ -201,17 +208,22 @@ class Plane
         /**
          * @brief Returns the grounded status of the plane
          */
-        bool getIsGrounded() const;
+        bool isGrounded() const;
 
         /**
          * @brief Returns the alerted status of the plane
          */
-        bool getIsAlerted() const;
+        bool isAlerted() const;
 
         /**
          * @brief Returns the SPI status of the plane
          */
-        bool getIsSPI() const;
+        bool isSPI() const;
+
+        /**
+         * @brief Indicates if the plane is selected
+         */
+        bool isSelected() const;
 
         // =================== //
         //        Others       //
