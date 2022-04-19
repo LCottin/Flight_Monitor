@@ -1,8 +1,8 @@
 #-----------------------------------------#
-#			COMPILER OPTIONS		
+#			COMPILER OPTIONS			  #
 #-----------------------------------------#
 CX		 = g++
-CXFLAGS  = -std=c++14 -Wall
+CXFLAGS  = -std=c++14 -Wall -Wextra
 EXT		 = cpp
 LIBS	 = -lsfml-graphics -lsfml-system -lsfml-window -lm
 DIR_OBJS = ./bin
@@ -10,7 +10,7 @@ INCLUDE  = -I./include/
 EXEC	 = $(DIR_OBJS)/main
 
 #-----------------------------------------#
-#				FILES    		
+#				FILES    				  #
 #-----------------------------------------#
 SRC := $(shell echo src/*.$(EXT))
 
@@ -21,7 +21,7 @@ SRC := $(shell echo src/*.$(EXT))
 OBJS = $(addsuffix .o, $(addprefix $(DIR_OBJS)/, $(basename $(notdir $(SRC)))))
 
 #-----------------------------------------#
-#	       	COMPILING RULES	      
+#	       	COMPILING RULES	      		  #
 #-----------------------------------------#
 all: build $(OBJS) 
 	$(CX) $(CXFLAGS) $(OBJS) -o $(EXEC) $(LIBS) $(INCLUDE)
