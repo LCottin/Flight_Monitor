@@ -28,11 +28,21 @@ void Database::clear()
 
 void Database::printInfo() const
 {
-    printf("Database contains %d planes: \n", _Planes.size());
+    printf("Database contains %ld planes: \n", _Planes.size());
     for (size_t i = 0; i < _Planes.size(); i++)
     {
-        printf("Plane %d: \n", i);
+        printf("Plane %ld: \n", i);
         _Planes[i]->printInfo();
         printf("\n");
     }
+}
+
+bool Database::contains(const Plane &plane) const
+{
+    for (size_t i = 0; i < _Planes.size(); i++)
+    {
+        if (_Planes[i] == &plane)
+            return true;
+    }
+    return false;
 }

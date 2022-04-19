@@ -19,7 +19,7 @@ class Database
 
     public:
         // =================== //
-        //        Setters      //
+        //       Setters       //
         // =================== //
         /**
          * @brief Adds a plane to the database
@@ -28,7 +28,7 @@ class Database
         void addPlane(Plane *plane);
 
         // =================== //
-        //        Getters      //
+        //       Getters       //
         // =================== //
         /**
          * @brief Returns the number of planes in the database
@@ -43,7 +43,7 @@ class Database
         Plane *getPlane(const unsigned index) const;
 
         // =================== //
-        //         Others      //
+        //        Others       //
         // =================== //
         /**
          * @brief Clears the database
@@ -54,6 +54,13 @@ class Database
          * @brief Prints the database
          */
         void printInfo() const;
+
+        /**
+         * @brief Tells if a plane is in the database
+         * @param plane The plane to check
+         * @return True if the plane is in the database, false otherwise
+         */
+        bool contains(const Plane &plane) const;
 };
 
 #endif
