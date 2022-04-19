@@ -7,6 +7,7 @@
 #include <cstdlib>
 
 #include "Plane.hpp"
+#include "Database.hpp"
 
 using namespace std;
 
@@ -44,7 +45,8 @@ int main(int argc, char const *argv[])
     fclose(fp);
     */
 
-    Plane plane("r");
+    Plane plane("p1", "F-001", "ABCD");
+    Plane plane2("p2", "F-002", "EFGH");
 
     // using each of the setters
     plane.setGroundVelocity(1.0);
@@ -63,25 +65,20 @@ int main(int argc, char const *argv[])
     plane.setLatitude(11.0);
     plane.setLongitude(12.0);
 
-    // using the getters
-    cout << "Ground velocity: " << plane.getGroundVelocity() << endl;
-    cout << "Vertical velocity: " << plane.getVerticalVelocity() << endl;
-    cout << "GPS altitude: " << plane.getGPSAltitude() << endl;
-    cout << "Baro altitude: " << plane.getBaroAltitude() << endl;
-    cout << "Heading: " << plane.getHeading() << endl;
-    cout << "Last post: " << plane.getLastPost() << endl;
-    cout << "Last contact: " << plane.getLastContact() << endl;
-    cout << "ID: " << plane.getID() << endl;
-    cout << "Squawk: " << plane.getSquawk() << endl;
-    cout << "Call sign: " << plane.getCallSign() << endl;
-    cout << "Is grounded: " << plane.isGrounded() << endl;
-    cout << "Is alerted: " << plane.isAlerted() << endl;
-    cout << "Is SPI: " << plane.isSPI() << endl;
-    cout << "Latitude: " << plane.getLatitude() << endl;
-    cout << "Longitude: " << plane.getLongitude() << endl;
+    plane2.setID("8");
+    plane2.setSquawk("9");
+    plane2.setCallSign("10");
 
     printf("\n");
     plane.printInfo();
     
+    Database db;
+    db.addPlane(&plane);
+    db.addPlane(&plane2);
+    db.printInfo();
+    db.contains(plane);
+
+    printf("%d\n", plane == plane2);
+
     return 0;
 }

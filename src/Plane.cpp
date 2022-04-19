@@ -1,13 +1,23 @@
 #include "Plane.hpp"
 
-Plane::Plane(const string &id)
+Plane::Plane(const string &id, const string &squawk, const string &callSign)
 {
-    _ID = id;
+    _ID         = id;
+    _Squawk     = squawk;
+    _CallSign   = callSign;
 }
 
-Plane::Plane(const char *id)
+Plane::Plane(const char *id, const char *squawk, const char *callSign)
 {
-    _ID = id;
+    _ID         = string(id);
+    _Squawk     = string(squawk);
+    _CallSign   = string(callSign);
+}
+
+bool Plane::operator==(const Plane &plane) const
+{
+    // ID, Squawk and CallSign are unique and define a plane
+    return ((_ID == plane._ID) && (_Squawk == plane._Squawk) && (_CallSign == plane._CallSign));
 }
 
 void Plane::setLatitude(const double latitude)

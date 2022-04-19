@@ -30,11 +30,12 @@ class Plane
         bool _IsSelected;
 
     public:
-        Plane(const string &id);
-        Plane(const char *id);
+        Plane(const string &id, const string &squawk, const string &callSign);
+        Plane(const char *id, const char *squawk, const char *callSign);
+        bool operator==(const Plane &plane) const;
 
         // =================== //
-        //        Setters      //   
+        //       Setters       //   
         // =================== //
         /**
          * @brief Changes the latitude of the plane
@@ -143,7 +144,7 @@ class Plane
         void setIsSelected(const bool isSelected); 
 
         // =================== //
-        //        Getters      //
+        //       Getters       //
         // =================== //
         /**
          * @brief Returns the latitude of the plane
