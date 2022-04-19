@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <vector>
 #include "Plane.hpp"
 
@@ -61,6 +62,14 @@ class Database
          * @return True if the plane is in the database, false otherwise
          */
         bool contains(const Plane &plane) const;
+
+        /**
+         * @brief Fills the database with a file
+         * @param file The file to read
+         * @param nbLine The number of lines to read, 0 means all (default)
+         * @return True if everything went well, false otherwise
+         */
+        bool fill(const string &file, const unsigned nbLine = 0);
 };
 
 #endif
