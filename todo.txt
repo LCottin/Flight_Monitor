@@ -1,5 +1,5 @@
-- Charger la base de données temporaire
-- extraire les infos pour créer les avions avec les times stamp
-- créer les avions avec les données de la base de données
-- sauver les avions dans la base de données
-- sauver les infos dans la base de données complète
+Dans un premier temps, lire uniquement une donnée pour chaque avion
+
+puis
+
+Une seule base de données courante issue du web, database enregistre les time stamp et chaque plane ses positions
