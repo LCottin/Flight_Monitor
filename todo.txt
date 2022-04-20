@@ -1,0 +1,5 @@
+- Charger la base de données temporaire
+- extraire les infos pour créer les avions avec les times stamp
+- créer les avions avec les données de la base de données
+- sauver les avions dans la base de données
+- sauver les infos dans la base de données complète
