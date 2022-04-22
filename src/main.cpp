@@ -13,38 +13,55 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    /*
-    FILE *fp = fopen("database/database.csv", "r");
+    system("clear");
+    FILE *fp = fopen("file.json", "r");
     if (fp == NULL)
     {
         cout << "Error opening file" << endl;
         return -1;
     }
 
-    char line[256];
-    unsigned line_number = 0;
+    char line[128];
+    unsigned i = 0;
 
-    while (fgets(line, sizeof(line), fp) != NULL && line_number < 40)
+    if (fgets(line, sizeof(line), fp) != NULL)
     {
-        line_number++;
-        int nb_token = 0;
-        char *token = strtok(line, ",");
-        char token_array[16][256];
-        while(token)
-        {
-            strcpy(token_array[nb_token++], token);
-            token = strtok(NULL, ",");
-        }
-        if (nb_token != 16)
-        {
-            cout << "Error in line " << line_number << endl;
-        }
+        // gets the time
+        fgets(line, sizeof(line), fp);
+        printf("%s", line);
 
-        printf("\n\n");
+        // splits the line
+        char *token = strtok(line, " ");        //extracts the word "time"
+        char *token2 = strtok(NULL, " ");       //extracts the time
+        token2[strlen(token2) - 2] = '\0';      //removes the last two characters
+
+        printf("%s \n%s\n", token, token2);
     }
-    fclose(fp);
-    */
 
+    // skip the first [
+    if (fgets(line, sizeof(line), fp) == NULL)
+    {
+        printf("error \n", line);
+        return -1;
+    }
+
+    do
+    {
+        i++;
+        fgets(line, sizeof(line), fp); // skip the first [
+        for (int i = 0; i < 18; i++)
+        {
+            fgets(line, sizeof(line), fp);
+            printf("%s", line);
+        }
+        fgets(line, sizeof(line), fp); // skip the last ]
+        printf("\n");
+    } while (strncmp(line, "        ]\n", strlen("        ]\n")) != 0); //make sure we are at the end of the file
+    
+    printf("Read %d lines\n", i);
+    fclose(fp);
+    
+    /*
     Plane plane("p1", "F-001", "ABCD");
     Plane plane2("p2", "F-002", "EFGH");
 
@@ -80,5 +97,6 @@ int main(int argc, char const *argv[])
 
     printf("%d\n", plane == plane2);
 
+    */
     return 0;
 }
