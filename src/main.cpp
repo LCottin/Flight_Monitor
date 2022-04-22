@@ -41,7 +41,7 @@ int main(int argc, char const *argv[])
     // skip the first [
     if (fgets(line, sizeof(line), fp) == NULL)
     {
-        printf("error \n", line);
+        printf("error \n");
         return -1;
     }
 

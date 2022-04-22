@@ -7,26 +7,36 @@
 
 using namespace std;
 
+typedef enum 
+{
+    ADS_B,
+    ASTERIX,
+    MLAT
+}source;
+
 class Plane
 {
     private:
-        double _Latitude;
-        double _Longitude;
-        double _GroundVelocity;
-        double _VerticalVelocity;
-        double _GPSAltitude;
-        double _BaroAltitude;
-        double _Heading;
-        double _LastPost;
-        double _LastContact;
-
         string _ID;
         string _Squawk;
         string _CallSign;
+        string _OriginCountry;
 
-        bool _IsGrounded;
-        bool _IsAlerted;
+        source _Source;
+
+        unsigned _LastUpdate;
+        unsigned _LastContact;
+
+        double _Angle;
+        double _Latitude;
+        double _Longitude;
+        double _GeoAltitude;
+        double _BaroAltitude;
+        double _GroundVelocity;
+        double _VerticalVelocity;
+
         bool _IsSPI;
+        bool _IsGrounded;
         bool _IsSelected;
 
     public:
@@ -72,7 +82,7 @@ class Plane
          * @brief Changes the GPS altitude of the plane
          * @param gpsAltitude The new GPS altitude
          */
-        void setGPSAltitude(const double gpsAltitude);
+        void setGeoAltitude(const double gpsAltitude);
 
         /**
          * @brief Changes the barometric altitude of the plane
@@ -81,16 +91,10 @@ class Plane
         void setBaroAltitude(const double baroAltitude);
 
         /**
-         * @brief Changes the heading of the plane
-         * @param heading The new heading
-         */
-        void setHeading(const double heading);
-
-        /**
          * @brief Changes the last post of the plane
-         * @param lastPost The new last post
+         * @param lastUpdate The new last update
          */
-        void setLastPost(const double lastPost);
+        void setLastUpdate(const double lastUpdate);
 
         /**
          * @brief Changes the last contact of the plane
@@ -124,12 +128,6 @@ class Plane
          * @param isGrounded The new grounded status
          */
         void setIsGrounded(const bool isGrounded);
-
-        /**
-         * @brief Changes the alerted status of the plane
-         * @param isAlerted The new alerted status
-         */
-        void setIsAlerted(const bool isAlerted);
 
         /**
          * @brief Changes the SPI status of the plane
@@ -169,7 +167,7 @@ class Plane
         /**
          * @brief Returns the GPS altitude of the plane
          */
-        double getGPSAltitude() const;
+        double getGeoAltitude() const;
 
         /**
          * @brief Returns the barometric altitude of the plane
@@ -177,14 +175,9 @@ class Plane
         double getBaroAltitude() const;
 
         /**
-         * @brief Returns the heading of the plane
-         */
-        double getHeading() const;
-
-        /**
          * @brief Returns the last post of the plane
          */
-        double getLastPost() const;
+        double getLastUpdate() const;
 
         /**
          * @brief Returns the last contact of the plane
@@ -210,11 +203,6 @@ class Plane
          * @brief Returns the grounded status of the plane
          */
         bool isGrounded() const;
-
-        /**
-         * @brief Returns the alerted status of the plane
-         */
-        bool isAlerted() const;
 
         /**
          * @brief Returns the SPI status of the plane

@@ -46,9 +46,9 @@ void Plane::setVerticalVelocity(const double verticalVelocity)
     _VerticalVelocity = verticalVelocity;
 }
 
-void Plane::setGPSAltitude(const double gpsAltitude)
+void Plane::setGeoAltitude(const double gpsAltitude)
 {
-    _GPSAltitude = gpsAltitude;
+    _GeoAltitude = gpsAltitude;
 }
 
 void Plane::setBaroAltitude(const double baroAltitude)
@@ -56,14 +56,9 @@ void Plane::setBaroAltitude(const double baroAltitude)
     _BaroAltitude = baroAltitude;
 }
 
-void Plane::setHeading(const double heading)
+void Plane::setLastUpdate(const double lastUpdate)
 {
-    _Heading = heading;
-}
-
-void Plane::setLastPost(const double lastPost)
-{
-    _LastPost = lastPost;
+    _LastUpdate = lastUpdate;
 }
 
 void Plane::setLastContact(const double lastContact)
@@ -106,11 +101,6 @@ void Plane::setIsGrounded(const bool isGrounded)
     _IsGrounded = isGrounded;
 }
 
-void Plane::setIsAlerted(const bool isAlerted)
-{
-    _IsAlerted = isAlerted;
-}
-
 void Plane::setIsSPI(const bool isSPI)
 {
     _IsSPI = isSPI;
@@ -141,9 +131,9 @@ double Plane::getVerticalVelocity() const
     return _VerticalVelocity;
 }
 
-double Plane::getGPSAltitude() const
+double Plane::getGeoAltitude() const
 {
-    return _GPSAltitude;
+    return _GeoAltitude;
 }
 
 double Plane::getBaroAltitude() const
@@ -151,14 +141,9 @@ double Plane::getBaroAltitude() const
     return _BaroAltitude;
 }
 
-double Plane::getHeading() const
+double Plane::getLastUpdate() const
 {
-    return _Heading;
-}
-
-double Plane::getLastPost() const
-{
-    return _LastPost;
+    return _LastUpdate;
 }
 
 double Plane::getLastContact() const
@@ -184,11 +169,6 @@ string Plane::getCallSign() const
 bool Plane::isGrounded() const
 {
     return _IsGrounded;
-}
-
-bool Plane::isAlerted() const
-{
-    return _IsAlerted;
 }
 
 bool Plane::isSPI() const
@@ -223,14 +203,12 @@ void Plane::printInfo() const
     printf("Longitude:          %lf\n", _Longitude);
     printf("Ground velocity:    %lf\n", _GroundVelocity);
     printf("Vertical velocity:  %lf\n", _VerticalVelocity);
-    printf("GPS altitude:       %lf\n", _GPSAltitude);
+    printf("GPS altitude:       %lf\n", _GeoAltitude);
     printf("Baro altitude:      %lf\n", _BaroAltitude);
-    printf("Heading:            %lf\n", _Heading);
-    printf("Last post:          %lf\n", _LastPost);
-    printf("Last contact:       %lf\n", _LastContact);
+    printf("Last update:        %u\n", _LastUpdate);
+    printf("Last contact:       %u\n", _LastContact);
     printf("Squawk:             %s\n", _Squawk.c_str());
     printf("Call sign:          %s\n", _CallSign.c_str());
-    printf("Is alerted:         %s\n", _IsAlerted ? "True":"False");
     printf("Is SPI:             %s\n", _IsSPI ? "True":"False");
     printf("Is selected:        %s\n", _IsSelected ? "True":"False");
     cout << "======================================\n" << endl;
