@@ -2,10 +2,10 @@
 
 The purpose of this personnal project is to create a interface to track plane like flyradar24.com or globe.adsbexchange.com.
 
-Data come from the web site The OpenSky Network (https://opensky-network.org).
+Data come from the web site The OpenSky Network (<https://opensky-network.org>).
 To get the data, I use the API and the command
 
-```
+``` bash
 curl -s "https://opensky-network.org/api/states/all" | python3 -m json.tool
 ```
 
@@ -45,8 +45,8 @@ Without an account, the data is only available every ten seconds. Information ab
 
 - **position_source** *(int)* : Origin of this state’s position: 0 = ADS-B, 1 = ASTERIX, 2 = MLAT
 
+## References
 
-#### References: 
 Matthias Schäfer, Martin Strohmeier, Vincent Lenders, Ivan Martinovic and Matthias Wilhelm.
 "Bringing Up OpenSky: A Large-scale ADS-B Sensor Network for Research".
 In Proceedings of the 13th IEEE/ACM International Symposium on Information Processing in Sensor Networks (IPSN), pages 83-94, April 2014.
