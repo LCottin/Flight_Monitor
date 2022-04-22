@@ -40,6 +40,7 @@ class Plane
         bool _IsSelected;
 
     public:
+        Plane();
         Plane(const string &id, const string &squawk, const string &callSign);
         Plane(const char *id, const char *squawk, const char *callSign);
         bool operator==(const Plane &plane) const;

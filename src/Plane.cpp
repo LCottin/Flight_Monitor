@@ -1,5 +1,9 @@
 #include "Plane.hpp"
 
+Plane::Plane()
+{   
+}
+
 Plane::Plane(const string &id, const string &squawk, const string &callSign)
 {
     _ID         = id;
