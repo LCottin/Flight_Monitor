@@ -47,38 +47,66 @@ bool Database::contains(const Plane &plane) const
     return false;
 }
 
-bool Database::fill(const string &file, const unsigned nbLine)
+bool Database::fill(const bool reloadFile)
 {
-    FILE *fp = fopen("database/database.csv", "r");
+    // Gets the lastest information from the web API
+    if (reloadFile)
+        system("curl -s https://opensky-network.org/api/states/all | python3 -m json.tool > file.json");
+    
+    FILE *fp = fopen("file.json", "r");
     if (fp == NULL)
     {
         cout << "Error opening file" << endl;
         return false;
     }
 
-    char line[256];
-    unsigned line_number = 0;
+    char line[128];
 
-    while ((fgets(line, sizeof(line), fp) != nullptr) && (line_number < nbLine))
+    // Extract the timestamp from the file
+    if (fgets(line, sizeof(line), fp) != NULL)
     {
-        line_number++;
-        int nb_token = 0;
-        char *token = strtok(line, ",");
-        char token_array[16][256];
-        while(token)
-        {
-            strcpy(token_array[nb_token++], token);
-            token = strtok(NULL, ",");
-        }
-        if (nb_token != 16)
-        {
-            cout << "Error in line " << line_number << endl;
-        }
-
-        //TODO: extract the data from the line and create a plane
-
-        printf("\n\n");
+        fgets(line, sizeof(line), fp);
     }
+    else
+    {
+        cout << "Error reading file" << endl;
+        return false;
+    }
+
+    // Splits the line
+    char *token = strtok(line, " ");        //extracts the word "time"
+    token = strtok(NULL, " ");       //extracts the time
+    token[strlen(token) - 2] = '\0';      //removes the last two characters
+    printf("Current timestamp : %s \n\n", token);
+
+    // Skips the first [
+    unsigned nbPlanes = 0;
+    if (fgets(line, sizeof(line), fp) == NULL)
+    {
+        printf("error \n");
+        return false;
+    }
+
+    do
+    {
+        // Extracts the plane's data
+        char data[18][128];
+        Plane plane;
+
+        fgets(line, sizeof(line), fp); // Skips the first [
+        for (int i = 0; i < 18; i++)
+        {
+            fgets(line, sizeof(line), fp);
+            printf("%s", line);
+            strncpy(data[i], line, sizeof(line));
+        }
+
+        fgets(line, sizeof(line), fp); // Skips the last ]
+        printf("\n");
+        _Planes.push_back(&plane);
+    } while (strncmp(line, "        ]\n", strlen("        ]\n")) != 0); //make sure we are at the end of the file
+    
+    printf("Read %u planes\n", _Planes.size());
     fclose(fp);
     return true;
 }

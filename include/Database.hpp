@@ -65,11 +65,10 @@ class Database
 
         /**
          * @brief Fills the database with a file
-         * @param file The file to read
-         * @param nbLine The number of lines to read, 0 means all (default)
+         * @param reloadFile If true (default), the file is reloaded
          * @return True if everything went well, false otherwise
          */
-        bool fill(const string &file, const unsigned nbLine = 0);
+        bool fill(const bool reloadFile = true);
 };
 
 #endif
