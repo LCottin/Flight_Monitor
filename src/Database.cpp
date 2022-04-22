@@ -91,22 +91,48 @@ bool Database::fill(const bool reloadFile)
     {
         // Extracts the plane's data
         char data[18][128];
-        Plane plane;
 
         fgets(line, sizeof(line), fp); // Skips the first [
         for (int i = 0; i < 18; i++)
         {
             fgets(line, sizeof(line), fp);
-            printf("%s", line);
             strncpy(data[i], line, sizeof(line));
         }
 
         fgets(line, sizeof(line), fp); // Skips the last ]
-        printf("\n");
-        _Planes.push_back(&plane);
+
+        // Affects the data to the plane
+        Plane *plane = new Plane();
+        //FIXME: Remove the '\n' at the end of the string
+        plane->setID(strtok(data[0], " "));
+        plane->setCallSign(strtok(data[1], " ")); 
+        plane->setOriginCountry(strtok(data[2], " ")); //FIXME: Country with two words (e.g. "United States") is not handled
+        plane->setLastUpdate(strncmp(data[3], "null", sizeof("null")) == 0 ? 999 : atoi(data[3]));
+        plane->setLastContact(atoi(data[4]));
+        plane->setLongitude(strncmp(data[5], "null", sizeof("null")) == 0 ? 999 : atof(data[5]));
+        plane->setLatitude(strncmp(data[6], "null", sizeof("null")) == 0 ? 999 : atof(data[6]));
+        plane->setBaroAltitude(strncmp(data[7], "null", sizeof("null")) == 0 ? -1 : atof(data[7]));
+        plane->setIsGrounded(strncmp(data[8], "true", sizeof("true")) == 0 ? true : false);
+        plane->setGroundVelocity(strncmp(data[9], "null", sizeof("null")) == 0 ? -1 : atof(data[9]));
+        plane->setAngle(strncmp(data[10], "null", sizeof("null")) == 0 ? 999 : atof(data[10]));
+        plane->setVerticalVelocity(strncmp(data[11], "null", sizeof("null")) == 0 ? 999 : atof(data[11]));
+        plane->setGeoAltitude(strncmp(data[13], "null", sizeof("null")) == 0 ? -1 : atof(data[12]));
+        plane->setSquawk(strtok(data[14], " "));
+        plane->setIsSPI(strncmp(data[15], "true", sizeof("true")) == 0 ? true : false);
+        plane->setSource((source)atoi(data[16]));
+
+        //FIXME: make sure the plane is not already in the database, and if it is, update it instead of adding a new one
+        // Adds the plane to the database
+        _Planes.push_back(plane);
+
     } while (strncmp(line, "        ]\n", strlen("        ]\n")) != 0); //make sure we are at the end of the file
     
     printf("Read %u planes\n", _Planes.size());
     fclose(fp);
     return true;
+}
+
+Database::~Database()
+{
+    clear();
 }

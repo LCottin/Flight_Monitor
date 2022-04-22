@@ -19,6 +19,8 @@ class Database
         vector<Plane*> _Planes;
 
     public:
+        Database();
+        ~Database();
         // =================== //
         //       Setters       //
         // =================== //

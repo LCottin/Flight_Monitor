@@ -12,5 +12,6 @@ int main(int argc, char const *argv[])
     system("clear");
     Database database;
     database.fill(false);
+    database.printInfo();
     return 0;
 }
