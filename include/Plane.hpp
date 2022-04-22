@@ -7,12 +7,12 @@
 
 using namespace std;
 
-typedef enum 
+typedef enum
 {
     ADS_B,
     ASTERIX,
     MLAT
-}source;
+} source;
 
 class Plane
 {
@@ -45,63 +45,8 @@ class Plane
         bool operator==(const Plane &plane) const;
 
         // =================== //
-        //       Setters       //   
+        //       Setters       //
         // =================== //
-        /**
-         * @brief Changes the latitude of the plane
-         * @param latitude The new latitude
-         */
-        void setLatitude(const double latitude);
-
-        /**
-         * @brief Changes the longitude of the plane
-         * @param longitude The new longitude
-         */
-        void setLongitude(const double longitude);
-
-        /**
-         * @brief Changes the position of the plane
-         * @param latitude The new latitude
-         * @param longitude The new longitude
-         */ 
-        void setPosition(const double latitude, const double longitude);
-
-        /**
-         * @brief Changes the ground velocity of the plane
-         * @param groundVelocity The new ground velocity
-         */
-        void setGroundVelocity(const double groundVelocity);
-
-        /**
-         * @brief Changes the vertical velocity of the plane
-         * @param verticalVelocity The new vertical velocity
-         */
-        void setVerticalVelocity(const double verticalVelocity);
-
-        /**
-         * @brief Changes the GPS altitude of the plane
-         * @param gpsAltitude The new GPS altitude
-         */
-        void setGeoAltitude(const double gpsAltitude);
-
-        /**
-         * @brief Changes the barometric altitude of the plane
-         * @param baroAltitude The new barometric altitude
-         */
-        void setBaroAltitude(const double baroAltitude);
-
-        /**
-         * @brief Changes the last post of the plane
-         * @param lastUpdate The new last update
-         */
-        void setLastUpdate(const double lastUpdate);
-
-        /**
-         * @brief Changes the last contact of the plane
-         * @param lastContact The new last contact
-         */
-        void setLastContact(const double lastContact);
-
         /**
          * @brief Changes the ID of the plane
          * @param id The new ID
@@ -124,10 +69,78 @@ class Plane
         void setCallSign(const char *callsign);
 
         /**
-         * @brief Changes the grounded status of the plane
-         * @param isGrounded The new grounded status
+         * @brief Changes the origin country of the plane
+         * @param originCountry The new origin country
          */
-        void setIsGrounded(const bool isGrounded);
+        void setOriginCountry(const string &originCountry);
+        void setOriginCountry(const char *originCountry);
+
+        /**
+         * @brief Changes the source of the plane
+         * @param source The new source
+         */ 
+        void setSource(const source &source);
+
+        /**
+         * @brief Changes the last post of the plane
+         * @param lastUpdate The new last update
+         */
+        void setLastUpdate(const unsigned lastUpdate);
+
+        /**
+         * @brief Changes the last contact of the plane
+         * @param lastContact The new last contact
+         */
+        void setLastContact(const unsigned lastContact);
+
+        /**
+         * @brief Changes the angle of the plane
+         * @param angle The new angle
+         */
+        void setAngle(const double angle);
+
+        /**
+         * @brief Changes the latitude of the plane
+         * @param latitude The new latitude
+         */
+        void setLatitude(const double latitude);
+
+        /**
+         * @brief Changes the longitude of the plane
+         * @param longitude The new longitude
+         */
+        void setLongitude(const double longitude);
+
+        /**
+         * @brief Changes the position of the plane
+         * @param latitude The new latitude
+         * @param longitude The new longitude
+         */
+        void setPosition(const double latitude, const double longitude);
+
+        /**
+         * @brief Changes the GPS altitude of the plane
+         * @param gpsAltitude The new GPS altitude
+         */
+        void setGeoAltitude(const double geoAltitude);
+
+        /**
+         * @brief Changes the barometric altitude of the plane
+         * @param baroAltitude The new barometric altitude
+         */
+        void setBaroAltitude(const double baroAltitude);
+
+        /**
+         * @brief Changes the ground velocity of the plane
+         * @param groundVelocity The new ground velocity
+         */
+        void setGroundVelocity(const double groundVelocity);
+
+        /**
+         * @brief Changes the vertical velocity of the plane
+         * @param verticalVelocity The new vertical velocity
+         */
+        void setVerticalVelocity(const double verticalVelocity);
 
         /**
          * @brief Changes the SPI status of the plane
@@ -136,54 +149,20 @@ class Plane
         void setIsSPI(const bool isSPI);
 
         /**
+         * @brief Changes the grounded status of the plane
+         * @param isGrounded The new grounded status
+         */
+        void setIsGrounded(const bool isGrounded);
+
+        /**
          * @brief Selects the plane
          * @param isSelected The new selected status
          */
-        void setIsSelected(const bool isSelected); 
+        void setIsSelected(const bool isSelected);
 
         // =================== //
         //       Getters       //
         // =================== //
-        /**
-         * @brief Returns the latitude of the plane
-         */
-        double getLatitude() const;
-
-        /**
-         * @brief Returns the longitude of the plane
-         */
-        double getLongitude() const;
-
-        /**
-         * @brief Returns the ground velocity of the plane
-         */
-        double getGroundVelocity() const;
-
-        /**
-         * @brief Returns the vertical velocity of the plane
-         */
-        double getVerticalVelocity() const;
-
-        /**
-         * @brief Returns the GPS altitude of the plane
-         */
-        double getGeoAltitude() const;
-
-        /**
-         * @brief Returns the barometric altitude of the plane
-         */
-        double getBaroAltitude() const;
-
-        /**
-         * @brief Returns the last post of the plane
-         */
-        double getLastUpdate() const;
-
-        /**
-         * @brief Returns the last contact of the plane
-         */
-        double getLastContact() const;
-
         /**
          * @brief Returns the ID of the plane
          */
@@ -200,14 +179,69 @@ class Plane
         string getCallSign() const;
 
         /**
-         * @brief Returns the grounded status of the plane
+         * @brief Returns the origin country of the plane
          */
-        bool isGrounded() const;
+        string getOriginCountry() const;
+
+        /**
+         * @brief Returns the source of the plane
+         */
+        source getSource() const;
+
+        /**
+         * @brief Returns the last post of the plane
+         */
+        unsigned getLastUpdate() const;
+
+        /**
+         * @brief Returns the last contact of the plane
+         */
+        unsigned getLastContact() const;
+
+        /**
+         * @brief Returns the angle of the plane
+         */
+        double getAngle() const;
+
+        /**
+         * @brief Returns the latitude of the plane
+         */
+        double getLatitude() const;
+
+        /**
+         * @brief Returns the longitude of the plane
+         */
+        double getLongitude() const;
+
+        /**
+         * @brief Returns the GPS altitude of the plane
+         */
+        double getGeoAltitude() const;
+
+        /**
+         * @brief Returns the barometric altitude of the plane
+         */
+        double getBaroAltitude() const;
+
+        /**
+         * @brief Returns the ground velocity of the plane
+         */
+        double getGroundVelocity() const;
+
+        /**
+         * @brief Returns the vertical velocity of the plane
+         */
+        double getVerticalVelocity() const;
 
         /**
          * @brief Returns the SPI status of the plane
          */
         bool isSPI() const;
+        
+        /**
+         * @brief Returns the grounded status of the plane
+         */
+        bool isGrounded() const;
 
         /**
          * @brief Indicates if the plane is selected
@@ -216,12 +250,12 @@ class Plane
 
         // =================== //
         //        Others       //
-        // =================== // 
+        // =================== //
         /**
          * @brief Returns the distance between the plane and the given position
          * @param latitude The latitude of the position
          * @param longitude The longitude of the position
-         * @return The distance 
+         * @return The distance
          */
         double getDistanceFrom(const double latitude, const double longitude) const;
 
