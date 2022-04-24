@@ -56,8 +56,12 @@ bool Database::contains(const Plane &plane) const
     return false;
 }
 
-bool Database::fill(const bool reloadFile)
+bool Database::fill(const unsigned maxPlanes, const bool reloadFile)
 {
+    // Initializes variables
+    char line[128];
+    unsigned nbPlanesLoaded = 0;
+
     // Gets the lastest information from the web API
     if (reloadFile)
         system("curl -s https://opensky-network.org/api/states/all | python3 -m json.tool > file.json");
@@ -68,8 +72,6 @@ bool Database::fill(const bool reloadFile)
         cout << "Error opening file" << endl;
         return false;
     }
-
-    char line[128];
 
     // Extract the timestamp from the file
     if (fgets(line, sizeof(line), fp) != nullptr)
@@ -107,6 +109,7 @@ bool Database::fill(const bool reloadFile)
 
         // Creates the plane
         Plane *plane = new Plane();
+        nbPlanesLoaded++;
 
         // Affects the ID
         data[0][strlen(data[0]) - 3] = '\0';
@@ -164,7 +167,7 @@ bool Database::fill(const bool reloadFile)
         // Adds the plane to the database
         _Planes.push_back(plane);
 
-    } while (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0); //make sure we are at the end of the file
+    } while ((nbPlanesLoaded < maxPlanes) && (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0)); //make sure we are at the end of the file
     
     fclose(fp);
     printf("End of file. Read %lu planes from file.\n", _Planes.size());

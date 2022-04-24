@@ -74,10 +74,11 @@ class Database
 
         /**
          * @brief Fills the database with a file
+         * @param maxPlanes The maximum number of planes to load
          * @param reloadFile If true (default), the file is reloaded
          * @return True if everything went well, false otherwise
          */
-        bool fill(const bool reloadFile = true);
+        bool fill(const unsigned maxPlanes, const bool reloadFile = true);
 };
 
 #endif

@@ -96,7 +96,7 @@ void Plane::setLongitude(const double longitude)
 
 void Plane::setPosition(const double latitude, const double longitude)
 {
-    _Latitude = latitude;
+    _Latitude  = latitude;
     _Longitude = longitude;
 }
 
