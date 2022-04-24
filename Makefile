@@ -2,11 +2,11 @@
 #			COMPILER OPTIONS			  #
 #-----------------------------------------#
 CX		 = g++
-CXFLAGS  = -std=c++14 -Wall -Wextra
+CXFLAGS  = -std=c++17 -Wall -Wextra
 EXT		 = cpp
 LIBS	 = -lsfml-graphics -lsfml-system -lsfml-window -lm
 DIR_OBJS = ./bin
-INCLUDE  = -I./include/
+INCLUDE  = -I./include/ -I./SFML/
 EXEC	 = $(DIR_OBJS)/main
 
 #-----------------------------------------#
