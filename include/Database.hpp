@@ -17,10 +17,12 @@ class Database
 {
     private:
         vector<Plane*> _Planes;
+        unsigned _TimeStamp;
 
     public:
         Database();
         ~Database();
+
         // =================== //
         //       Setters       //
         // =================== //
@@ -44,6 +46,11 @@ class Database
          * @return A pointer of a plane or nullptr if the index is out of range
          */
         Plane *getPlane(const unsigned index) const;
+
+        /**
+         * @brief Returns the timestamp of the database
+         */
+        unsigned getTimeStamp() const;
 
         // =================== //
         //        Others       //
