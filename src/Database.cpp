@@ -56,11 +56,12 @@ bool Database::contains(const Plane &plane) const
     return false;
 }
 
-bool Database::fill(const unsigned maxPlanes, const bool reloadFile)
+bool Database::fill(const int maxPlanes, const bool reloadFile)
 {
     // Initializes variables
-    char line[128];
+    char line[64];
     unsigned nbPlanesLoaded = 0;
+    const unsigned nbPlanesToLoad = (maxPlanes == -1 || maxPlanes > 1000) ? 1000 : maxPlanes;
 
     // Gets the lastest information from the web API
     if (reloadFile)
@@ -167,10 +168,11 @@ bool Database::fill(const unsigned maxPlanes, const bool reloadFile)
         // Adds the plane to the database
         _Planes.push_back(plane);
 
-    } while ((nbPlanesLoaded < maxPlanes) && (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0)); //make sure we are at the end of the file
+    } while ((nbPlanesLoaded < nbPlanesToLoad) && (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0)); //make sure we are at the end of the file
     
     fclose(fp);
     printf("End of file. Read %lu planes from file.\n", _Planes.size());
+    exit(0);
     return true;
 }
 
