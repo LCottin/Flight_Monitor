@@ -103,7 +103,7 @@ bool Database::fill(const unsigned maxPlanes, const bool reloadFile)
         for (int i = 0; i < 18; i++)
         {
             fgets(line, sizeof(line), fp);
-            strncpy(data[i], line, sizeof(line));
+            strncpy(data[i], line, sizeof(data[i]));
         }
         fgets(line, sizeof(line), fp); // Skips the last ]
 
