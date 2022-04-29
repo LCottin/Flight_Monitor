@@ -1,21 +1,11 @@
 #include "Plane.hpp"
 
 Plane::Plane()
-{   
-}
-
-Plane::Plane(const string &id, const string &squawk, const string &callSign)
 {
-    _ID         = id;
-    _Squawk     = squawk;
-    _CallSign   = callSign;
-}
-
-Plane::Plane(const char *id, const char *squawk, const char *callSign)
-{
-    _ID         = string(id);
-    _Squawk     = string(squawk);
-    _CallSign   = string(callSign);
+    _Texture.loadFromFile("imgs/plane.png");
+    _Sprite.setTexture(_Texture);
+    double scale = 0.03;
+    _Sprite.setScale(scale, scale);
 }
 
 bool Plane::operator==(const Plane &plane) const
@@ -218,6 +208,11 @@ bool Plane::isGrounded() const
 bool Plane::isSelected() const
 {
     return _IsSelected;
+}
+
+Sprite Plane::getSprite() const
+{
+    return _Sprite;
 }
 
 double Plane::getDistanceFrom(const double latitude, const double longitude) const
