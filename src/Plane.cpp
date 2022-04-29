@@ -1,11 +1,15 @@
 #include "Plane.hpp"
 
+static double scaler(double value, double fromLow, double fromHigh, double toLow, double toHigh)
+{
+    return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+}
+
 Plane::Plane()
 {
-    _Texture.loadFromFile("imgs/plane.png");
+    _Texture.loadFromFile(PLANE_TEXTURE);
     _Sprite.setTexture(_Texture);
-    double scale = 0.03;
-    _Sprite.setScale(scale, scale);
+    _Sprite.setScale(PLANE_SCALE, PLANE_SCALE);
 }
 
 bool Plane::operator==(const Plane &plane) const
@@ -76,18 +80,21 @@ void Plane::setAngle(const double angle)
 
 void Plane::setLatitude(const double latitude)
 {
-    _Latitude = latitude;
+    _Latitude   = latitude;
+    _Sprite.setPosition(scaler(_Latitude, -90, 90, 0, IMG_WIDTH), _Sprite.getPosition().y);
 }
 
 void Plane::setLongitude(const double longitude)
 {
     _Longitude = longitude;
+    _Sprite.setPosition(_Sprite.getPosition().x, scaler(_Longitude, -180, 180, 0, IMG_HEIGHT));
 }
 
 void Plane::setPosition(const double latitude, const double longitude)
 {
     _Latitude  = latitude;
     _Longitude = longitude;
+    _Sprite.setPosition(scaler(_Latitude, -90, 90, 0, IMG_WIDTH), scaler(_Longitude, -180, 180, 0, IMG_HEIGHT));
 }
 
 void Plane::setGeoAltitude(const double geoAltitude)
