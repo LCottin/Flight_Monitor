@@ -29,16 +29,18 @@ unsigned Database::getTimeStamp() const
 
 void Database::clear()
 {
-    for (size_t i = 0; i < _Planes.size(); i++)
+    const unsigned size = _Planes.size();
+    for (size_t i = 0; i < size; i++)
     {
         delete _Planes[i];
     }
 }
 
 void Database::printInfo() const
-{
-    printf("Database contains %ld planes: \n", _Planes.size());
-    for (size_t i = 0; i < _Planes.size(); i++)
+{    
+    const unsigned size = _Planes.size();
+    printf("Database contains %u planes: \n", size);
+    for (size_t i = 0; i < size; i++)
     {
         printf("Plane %ld: \n", i);
         _Planes[i]->printInfo();
@@ -58,10 +60,13 @@ bool Database::contains(const Plane &plane) const
 
 bool Database::fill(const int maxPlanes, const bool reloadFile)
 {
+    if (maxPlanes == 0)
+        return true;
+
     // Initializes variables
     char line[64];
     unsigned nbPlanesLoaded = 0;
-    const unsigned nbPlanesToLoad = (maxPlanes == -1 || maxPlanes > 1000) ? 1000 : maxPlanes;
+    const unsigned nbPlanesToLoad = (maxPlanes == -1 || maxPlanes > MAX_PLANES) ? MAX_PLANES : maxPlanes;
 
     // Gets the lastest information from the web API
     if (reloadFile)
@@ -171,8 +176,7 @@ bool Database::fill(const int maxPlanes, const bool reloadFile)
     } while ((nbPlanesLoaded < nbPlanesToLoad) && (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0)); //make sure we are at the end of the file
     
     fclose(fp);
-    printf("End of file. Read %lu planes from file.\n", _Planes.size());
-    exit(0);
+    printf("End of file. Read %u planes from file.\n", nbPlanesLoaded);
     return true;
 }
 

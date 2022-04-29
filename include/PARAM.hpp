@@ -12,4 +12,6 @@
 #define PLANE_TEXTURE   "imgs/plane.png"
 #define PLANE_SCALE     0.02
 
+#define MAX_PLANES      1000
+
 #endif
