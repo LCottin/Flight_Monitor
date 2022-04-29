@@ -26,6 +26,11 @@ void Display::show()
 
         _Window.clear();
         _Window.draw(_BackgroundSprite);
+        for (size_t i = 0; i < _Database->getPlaneCount(); i++)
+        {
+            //TODO: Draw the plane at the correct position on the map
+            _Window.draw(_Database->getPlane(i)->getSprite());
+        }
         _Window.display();
     }
 }
