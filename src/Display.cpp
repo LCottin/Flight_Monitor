@@ -4,8 +4,8 @@ Display::Display(Database &database)
 {
     _Database = &database;
 
-    _Window.create(VideoMode(900, 600), "Monitoring");
-    if (_Background.loadFromFile("imgs/map.jpg") == false)
+    _Window.create(VideoMode(IMG_WIDTH, IMG_HEIGHT), "Monitoring");
+    if (_Background.loadFromFile(IMG_NAME) == false)
     {
         printf("Error: Could not load the background image\n");
         return;
