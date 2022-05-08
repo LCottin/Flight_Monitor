@@ -7,15 +7,20 @@ static double scaler(double value, double fromLow, double fromHigh, double toLow
 
 Plane::Plane()
 {
-    _Texture.loadFromFile(PLANE_TEXTURE);
+    if (_Texture.loadFromFile(PLANE_TEXTURE) == false)
+    {
+        printf("Error: Could not load the plane image\n");
+        return;
+    }
     _Sprite.setTexture(_Texture);
-    _Sprite.setScale(PLANE_SCALE, PLANE_SCALE);
+    _Sprite.setScale(Vector2f(PLANE_SCALE, PLANE_SCALE));
 }
 
 bool Plane::operator==(const Plane &plane) const
 {
     // ID, Squawk and CallSign are unique and define a plane
-    return ((_ID == plane._ID) && (_Squawk == plane._Squawk) && (_CallSign == plane._CallSign));
+    return ((_ID == plane._ID) && (_Squawk == plane._Squawk) && 
+            (_CallSign == plane._CallSign) && (_OriginCountry == plane._OriginCountry));
 }
 
 void Plane::setID(const string &id)
@@ -81,20 +86,20 @@ void Plane::setAngle(const double angle)
 void Plane::setLatitude(const double latitude)
 {
     _Latitude   = latitude;
-    _Sprite.setPosition(scaler(_Latitude, -90, 90, 0, IMG_WIDTH), _Sprite.getPosition().y);
+    _Sprite.setPosition(Vector2f(scaler(_Latitude, -90, 90, 0, IMG_WIDTH), _Sprite.getPosition().y));
 }
 
 void Plane::setLongitude(const double longitude)
 {
     _Longitude = longitude;
-    _Sprite.setPosition(_Sprite.getPosition().x, scaler(_Longitude, -180, 180, 0, IMG_HEIGHT));
+    _Sprite.setPosition(Vector2f(_Sprite.getPosition().x, scaler(_Longitude, -180, 180, 0, IMG_HEIGHT)));
 }
 
 void Plane::setPosition(const double latitude, const double longitude)
 {
     _Latitude  = latitude;
     _Longitude = longitude;
-    _Sprite.setPosition(scaler(_Latitude, -90, 90, 0, IMG_WIDTH), scaler(_Longitude, -180, 180, 0, IMG_HEIGHT));
+    _Sprite.setPosition(Vector2f(scaler(_Latitude, -90, 90, 0, IMG_WIDTH), scaler(_Longitude, -180, 180, 0, IMG_HEIGHT)));
 }
 
 void Plane::setGeoAltitude(const double geoAltitude)
