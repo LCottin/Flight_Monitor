@@ -10,6 +10,7 @@
 #include <cmath>
 
 #include "SFML/Graphics.hpp"
+#include "SFML/System.hpp"
 #include "PARAM.hpp"
 
 using namespace std;

@@ -14,6 +14,7 @@ Plane::Plane()
     }
     _Sprite.setTexture(_Texture);
     _Sprite.setScale(Vector2f(PLANE_SCALE, PLANE_SCALE));
+    _Sprite.setRotation(sf::degrees((float)45));
 }
 
 bool Plane::operator==(const Plane &plane) const
