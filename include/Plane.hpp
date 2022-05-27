@@ -1,3 +1,7 @@
+/**************************
+ *       PLANE CLASS      *
+ **************************/
+
 #ifndef __PLANE__
 #define __PLANE__
 
@@ -5,7 +9,12 @@
 #include <iostream>
 #include <cmath>
 
+#include "SFML/Graphics.hpp"
+#include "SFML/System.hpp"
+#include "PARAM.hpp"
+
 using namespace std;
+using namespace sf;
 
 typedef enum
 {
@@ -39,10 +48,11 @@ class Plane
         bool _IsGrounded;
         bool _IsSelected;
 
+        Sprite _Sprite;
+        Texture _Texture;
+
     public:
         Plane();
-        Plane(const string &id, const string &squawk, const string &callSign);
-        Plane(const char *id, const char *squawk, const char *callSign);
         bool operator==(const Plane &plane) const;
 
         // =================== //
@@ -248,6 +258,11 @@ class Plane
          * @brief Indicates if the plane is selected
          */
         bool isSelected() const;
+
+        /**
+         * @brief Returns the sprite of the plane
+         */
+        Sprite getSprite() const;
 
         // =================== //
         //        Others       //

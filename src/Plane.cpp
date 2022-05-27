@@ -1,21 +1,20 @@
 #include "Plane.hpp"
 
+static double scaler(double value, double fromLow, double fromHigh, double toLow, double toHigh)
+{
+    return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+}
+
 Plane::Plane()
-{   
-}
-
-Plane::Plane(const string &id, const string &squawk, const string &callSign)
 {
-    _ID         = id;
-    _Squawk     = squawk;
-    _CallSign   = callSign;
-}
-
-Plane::Plane(const char *id, const char *squawk, const char *callSign)
-{
-    _ID         = string(id);
-    _Squawk     = string(squawk);
-    _CallSign   = string(callSign);
+    if (_Texture.loadFromFile(PLANE_TEXTURE) == false)
+    {
+        printf("Error: Could not load the plane texture\n");
+        return;
+    }
+    _Sprite.setTexture(_Texture);
+    _Sprite.setScale(Vector2f(PLANE_SCALE, PLANE_SCALE));
+    _Sprite.setRotation(sf::degrees((float)45));
 }
 
 bool Plane::operator==(const Plane &plane) const
@@ -86,18 +85,22 @@ void Plane::setAngle(const double angle)
 
 void Plane::setLatitude(const double latitude)
 {
-    _Latitude = latitude;
+    _Latitude   = latitude;
+    _Sprite.setPosition(Vector2f(_Sprite.getPosition().x, scaler(_Latitude, -90, 90, IMG_HEIGHT, 0)));
+    cout << "position: " << _Sprite.getPosition().x << " " << _Sprite.getPosition().y << endl;
 }
 
 void Plane::setLongitude(const double longitude)
 {
     _Longitude = longitude;
+    _Sprite.setPosition(Vector2f(scaler(_Longitude, -180, 180, 0, IMG_WIDTH), _Sprite.getPosition().y));
 }
 
 void Plane::setPosition(const double latitude, const double longitude)
 {
-    _Latitude = latitude;
+    _Latitude  = latitude;
     _Longitude = longitude;
+    _Sprite.setPosition(Vector2f(scaler(_Longitude, -180, 180, 0, IMG_WIDTH), scaler(_Latitude, -90, 90, IMG_HEIGHT, 0)));
 }
 
 void Plane::setGeoAltitude(const double geoAltitude)
@@ -218,6 +221,11 @@ bool Plane::isGrounded() const
 bool Plane::isSelected() const
 {
     return _IsSelected;
+}
+
+Sprite Plane::getSprite() const
+{
+    return _Sprite;
 }
 
 double Plane::getDistanceFrom(const double latitude, const double longitude) const

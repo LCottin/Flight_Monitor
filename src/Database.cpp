@@ -56,20 +56,26 @@ bool Database::contains(const Plane &plane) const
     return false;
 }
 
-bool Database::fill(const bool reloadFile)
+bool Database::fill(const int maxPlanes, const bool reloadFile)
 {
+    // Initializes variables
+    char line[64];
+    unsigned nbPlanesLoaded = 0;
+    const unsigned nbPlanesToLoad = (maxPlanes < 0 || maxPlanes > MAX_PLANE_COUNT) ? MAX_PLANE_COUNT : maxPlanes;
+
     // Gets the lastest information from the web API
     if (reloadFile)
-        system("curl -s https://opensky-network.org/api/states/all | python3 -m json.tool > file.json");
-    
-    FILE *fp = fopen("file.json", "r");
+    {
+        system("rm -f planes.json");
+        system("curl -s https://opensky-network.org/api/states/all | python3 -m json.tool > planes.json");
+    }
+
+    FILE *fp = fopen("planes.json", "r");
     if (fp == nullptr)
     {
         cout << "Error opening file" << endl;
         return false;
     }
-
-    char line[128];
 
     // Extract the timestamp from the file
     if (fgets(line, sizeof(line), fp) != nullptr)
@@ -101,12 +107,13 @@ bool Database::fill(const bool reloadFile)
         for (int i = 0; i < 18; i++)
         {
             fgets(line, sizeof(line), fp);
-            strncpy(data[i], line, sizeof(line));
+            strncpy(data[i], line, sizeof(data[i]));
         }
         fgets(line, sizeof(line), fp); // Skips the last ]
 
         // Creates the plane
         Plane *plane = new Plane();
+        nbPlanesLoaded++;
 
         // Affects the ID
         data[0][strlen(data[0]) - 3] = '\0';
@@ -164,7 +171,7 @@ bool Database::fill(const bool reloadFile)
         // Adds the plane to the database
         _Planes.push_back(plane);
 
-    } while (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0); //make sure we are at the end of the file
+    } while ((nbPlanesLoaded < nbPlanesToLoad) && (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0)); //make sure we are at the end of the file
     
     fclose(fp);
     printf("End of file. Read %lu planes from file.\n", _Planes.size());

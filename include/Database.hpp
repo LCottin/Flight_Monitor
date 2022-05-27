@@ -5,10 +5,9 @@
 #ifndef __DATABASE__
 #define __DATABASE__
 
-#include <iostream>
-#include <string>
 #include <cstring>
 #include <vector>
+
 #include "Plane.hpp"
 
 using namespace std;
@@ -74,10 +73,11 @@ class Database
 
         /**
          * @brief Fills the database with a file
+         * @param maxPlanes The maximum number of planes to load, -1 for no limit
          * @param reloadFile If true (default), the file is reloaded
          * @return True if everything went well, false otherwise
          */
-        bool fill(const bool reloadFile = true);
+        bool fill(const int maxPlanes, const bool reloadFile = true);
 };
 
 #endif
