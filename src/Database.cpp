@@ -29,18 +29,16 @@ unsigned Database::getTimeStamp() const
 
 void Database::clear()
 {
-    const unsigned size = _Planes.size();
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < _Planes.size(); i++)
     {
         delete _Planes[i];
     }
 }
 
 void Database::printInfo() const
-{    
-    const unsigned size = _Planes.size();
-    printf("Database contains %u planes: \n", size);
-    for (size_t i = 0; i < size; i++)
+{
+    printf("Database contains %ld planes: \n", _Planes.size());
+    for (size_t i = 0; i < _Planes.size(); i++)
     {
         printf("Plane %ld: \n", i);
         _Planes[i]->printInfo();
@@ -60,19 +58,19 @@ bool Database::contains(const Plane &plane) const
 
 bool Database::fill(const int maxPlanes, const bool reloadFile)
 {
-    if (maxPlanes == 0)
-        return true;
-
     // Initializes variables
     char line[64];
     unsigned nbPlanesLoaded = 0;
-    const unsigned nbPlanesToLoad = (maxPlanes == -1 || maxPlanes > MAX_PLANES) ? MAX_PLANES : maxPlanes;
+    const unsigned nbPlanesToLoad = (maxPlanes < 0 || maxPlanes > MAX_PLANE_COUNT) ? MAX_PLANE_COUNT : maxPlanes;
 
     // Gets the lastest information from the web API
     if (reloadFile)
-        system("curl -s https://opensky-network.org/api/states/all | python3 -m json.tool > file.json");
-    
-    FILE *fp = fopen("file.json", "r");
+    {
+        system("rm -f planes.json");
+        system("curl -s https://opensky-network.org/api/states/all | python3 -m json.tool > planes.json");
+    }
+
+    FILE *fp = fopen("planes.json", "r");
     if (fp == nullptr)
     {
         cout << "Error opening file" << endl;
@@ -176,7 +174,7 @@ bool Database::fill(const int maxPlanes, const bool reloadFile)
     } while ((nbPlanesLoaded < nbPlanesToLoad) && (strncmp(line, "        ]\n", sizeof("        ]\n")) != 0)); //make sure we are at the end of the file
     
     fclose(fp);
-    printf("End of file. Read %u planes from file.\n", nbPlanesLoaded);
+    printf("End of file. Read %lu planes from file.\n", _Planes.size());
     return true;
 }
 

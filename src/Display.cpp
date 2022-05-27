@@ -24,7 +24,7 @@ void Display::show()
                 _Window.close();
         }
 
-        _Window.clear();
+        _Window.clear(Color::Black);
         _Window.draw(_BackgroundSprite);
         for (size_t i = 0; i < _Database->getPlaneCount(); i++)
         {

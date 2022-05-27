@@ -5,13 +5,12 @@
 #ifndef __PARAM__
 #define __PARAM__
 
-#define IMG_NAME        "imgs/map.jpg"
-#define IMG_WIDTH       900
-#define IMG_HEIGHT      600
+#define IMG_NAME        "imgs/map3.jpg"
+#define IMG_WIDTH       1200
+#define IMG_HEIGHT      800
 
-#define PLANE_TEXTURE   "imgs/plane.png"
-#define PLANE_SCALE     0.02
-
-#define MAX_PLANES      1000
+#define PLANE_TEXTURE   "imgs/plane3.png"
+#define PLANE_SCALE     0.05f
+#define MAX_PLANE_COUNT 1000
 
 #endif

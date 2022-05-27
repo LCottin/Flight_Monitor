@@ -3,8 +3,8 @@
 #-----------------------------------------#
 CX		 = g++
 CXFLAGS  = -std=c++17 -Wall -Wextra
-CEXT	 = cpp
-HEXT	 = hpp
+CXEXT	 = cpp
+HXEXT	 = hpp
 LIBS	 = -lsfml-graphics -lsfml-system -lsfml-window -lm
 DIR_OBJS = ./bin
 INCLUDE  = -I./include/ -I./SFML/
@@ -13,8 +13,8 @@ EXEC	 = $(DIR_OBJS)/main
 #-----------------------------------------#
 #				FILES    				  #
 #-----------------------------------------#
-SRC := $(shell echo src/*.$(CEXT))
-DEPS := $(shell echo include/*.$(HEXT))
+SRC := $(shell echo src/*.$(CXEXT))
+DEPS := $(shell echo include/*.$(HXEXT))
 
 #notdir    : returns the file only without its folder (src/main.c 	 -> main.c)
 #basename  : returns the file withtout its suffix     (main.c     	 -> main)
@@ -32,7 +32,7 @@ all: build $(OBJS)
 # Builds .o's from .cpp's using automatic variables 
 #	$<: the name of the prerequisite of the rule -> .cpp file 
 #	$@: the name of the target of the rule 		 -> .o file
-$(DIR_OBJS)/%.o : ./src/%.$(CEXT) $(DEPS)
+$(DIR_OBJS)/%.o : ./src/%.$(CXEXT) $(DEPS)
 	$(CX) $(CXFLAGS) -c $< -o $@ $(INCLUDE)
 
 .PHONY: build # To avoid errors when building 
