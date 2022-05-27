@@ -22,60 +22,58 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef SFML_GLYPH_HPP
-#define SFML_GLYPH_HPP
+
+#ifndef SFML_SUSPENDAWARECLOCK_HPP
+#define SFML_SUSPENDAWARECLOCK_HPP
 
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Graphics/Export.hpp>
-#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Export.hpp>
+#include <chrono>
 
 
 namespace sf
 {
 ////////////////////////////////////////////////////////////
-/// \brief Structure describing a glyph
+/// \brief Android, chrono-compatible, suspend-aware clock
+///
+/// Linux steady clock is represented by CLOCK_MONOTONIC.
+/// However, this implementation does not work properly for
+/// long-running clocks that work in the background when the
+/// system is suspended.
+///
+/// SuspendAwareClock uses CLOCK_BOOTTIME which is identical
+/// to CLOCK_MONOTONIC, except that it also includes any time
+/// that the system is suspended.
+///
+/// Note: In most cases, CLOCK_MONOTONIC is a better choice.
+/// Make sure this implementation is required for your use case.
 ///
 ////////////////////////////////////////////////////////////
-class SFML_GRAPHICS_API Glyph
+class SFML_SYSTEM_API SuspendAwareClock
 {
 public:
-
     ////////////////////////////////////////////////////////////
-    /// \brief Default constructor
+    /// \brief Type traits and static members
+    ///
+    /// These type traits and static members meet the requirements
+    /// of a Clock concept in the C++ Standard. More specifically,
+    /// TrivialClock requirements are met. Thus, naming convention
+    /// has been kept consistent to allow for extended use e.g.
+    /// https://en.cppreference.com/w/cpp/chrono/is_clock
     ///
     ////////////////////////////////////////////////////////////
-    Glyph() : advance(0), lsbDelta(0), rsbDelta(0) {}
+    using duration = std::chrono::nanoseconds;
+    using rep = duration::rep;
+    using period = duration::period;
+    using time_point = std::chrono::time_point<SuspendAwareClock, duration>;
 
-    ////////////////////////////////////////////////////////////
-    // Member data
-    ////////////////////////////////////////////////////////////
-    float     advance;     //!< Offset to move horizontally to the next character
-    int       lsbDelta;    //!< Left offset after forced autohint. Internally used by getKerning()
-    int       rsbDelta;    //!< Right offset after forced autohint. Internally used by getKerning()
-    FloatRect bounds;      //!< Bounding rectangle of the glyph, in coordinates relative to the baseline
-    IntRect   textureRect; //!< Texture coordinates of the glyph inside the font's texture
+    static constexpr bool is_steady = true;
+
+    static time_point now() noexcept;
 };
 
 } // namespace sf
 
-
-#endif // SFML_GLYPH_HPP
-
-
-////////////////////////////////////////////////////////////
-/// \class sf::Glyph
-/// \ingroup graphics
-///
-/// A glyph is the visual representation of a character.
-///
-/// The sf::Glyph structure provides the information needed
-/// to handle the glyph:
-/// \li its coordinates in the font's texture
-/// \li its bounding rectangle
-/// \li the offset to apply to get the starting position of the next glyph
-///
-/// \see sf::Font
-///
-////////////////////////////////////////////////////////////
+#endif // SFML_SUSPENDAWARECLOCK_HPP
